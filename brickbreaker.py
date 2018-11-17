@@ -20,7 +20,7 @@ class brickBreaker():
         xSpeed_init = 5
         ySpeed_init = 5
         maxLives = 6
-        batSpeed = 30
+        paddleSpeed = 30
         score = 0
         bgColour = 255, 0, 23 # Red background 
         size = width, height = 640, 480
@@ -31,8 +31,8 @@ class brickBreaker():
         # Fullscreen looks ugly af
         # screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
          
-        bat = pygame.image.load("bat.png").convert()
-        batRect = bat.get_rect()
+        paddle = pygame.image.load("paddle.png").convert()
+        paddleRect = paddle.get_rect()
  
         ball = pygame.image.load("guwopball.png").convert()
         ball.set_colorkey((255, 255, 255))
@@ -50,7 +50,7 @@ class brickBreaker():
         wall.buildWall(width)
  
         # Set ready for game loop
-        batRect = batRect.move((width / 2) - (batRect.right / 2), height - 20)
+        paddleRect = paddleRect.move((width / 2) - (paddleRect.right / 2), height - 20)
         ballRect = ballRect.move(width / 2, height / 2)      
         xSpeed = xSpeed_init
         ySpeed = ySpeed_init
@@ -73,27 +73,27 @@ class brickBreaker():
                     if event.key == pygame.K_ESCAPE:
                         sys.exit()
                     if event.key == pygame.K_LEFT:                        
-                        batRect = batRect.move(-batSpeed, 0)  
-                        if (batRect.left < 0):                          
-                            batRect.left = 0    
+                        paddleRect = paddleRect.move(-paddleSpeed, 0)  
+                        if (paddleRect.left < 0):                          
+                            paddleRect.left = 0    
  
                     if event.key == pygame.K_RIGHT:                    
-                        batRect = batRect.move(batSpeed, 0)
-                        if (batRect.right > width):                            
-                            batRect.right = width
+                        paddleRect = paddleRect.move(paddleSpeed, 0)
+                        if (paddleRect.right > width):                            
+                            paddleRect.right = width
  
-            # Check if bat has hit ball    
-            if ballRect.bottom >= batRect.top and \
-               ballRect.bottom <= batRect.bottom and \
-               ballRect.right >= batRect.left and \
-               ballRect.left <= batRect.right:
+            # Check if paddle has hit ball    
+            if ballRect.bottom >= paddleRect.top and \
+               ballRect.bottom <= paddleRect.bottom and \
+               ballRect.right >= paddleRect.left and \
+               ballRect.left <= paddleRect.right:
  
                 ySpeed = -ySpeed                
                 pong.play(0)                
-                offset = ballRect.center[0] - batRect.center[0]
+                offset = ballRect.center[0] - paddleRect.center[0]
 
-                # Offset > 0 means ball has hit the right side of the bat                  
-                # the angle of ball varies depending on where ball hits bat              
+                # Offset > 0 means ball has hit the right side of the paddle                  
+                # the angle of ball varies depending on where ball hits paddle             
                 if offset > 0:
 
                     if offset > 30:  
@@ -113,7 +113,7 @@ class brickBreaker():
                         xSpeed = -5
  
                      
-            # Move bat/ball
+            # Move paddle/ball
             ballRect = ballRect.move(xSpeed, ySpeed)
  
             if ballRect.left < 0 or ballRect.right > width:
@@ -125,7 +125,7 @@ class brickBreaker():
                 ySpeed = -ySpeed      
                 pong.play(0)  
                        
-            # Check if ball has gone past bat - lose a life
+            # Check if ball has gone past the paddle - lose a life
             if ballRect.top > height:
                
                 lives -= 1
@@ -141,7 +141,7 @@ class brickBreaker():
                 ballRect.center = width * random.random(), height / 3                                
                
                 if lives == 0:                    
-                    msg = pygame.font.Font(None,70).render("Game Over, Pimp", True, (0, 255, 255), bgColour)
+                    msg = pygame.font.Font(None,70).render("Game Over, Pimp", True, (27, 255, 0), bgColour)
                     msgRect = msg.get_rect()
                     msgRect = msgRect.move(width / 2 - (msgRect.center[0]), height / 3)
                     screen.blit(msg, msgRect)
@@ -204,11 +204,11 @@ class brickBreaker():
 
             # Displays lives/score             
             screen.fill(bgColour)
-            scoreText = pygame.font.Font(None,30).render("Score: " + str(score), True, (0,255,255), bgColour)
+            scoreText = pygame.font.Font(None,30).render("Score: " + str(score), True, (27, 255, 0), bgColour)
             scoretextRect = scoreText.get_rect()
             scoretextRect = scoretextRect.move(width - scoretextRect.right, 0)
 
-            livesText = pygame.font.Font(None, 30).render("Lives: " + str(lives), True, (0, 255, 255), bgColour)
+            livesText = pygame.font.Font(None, 30).render("Lives: " + str(lives), True, (27, 255, 0), bgColour)
             livestextRect = livesText.get_rect()
 
             screen.blit(livesText, livestextRect)
@@ -221,7 +221,7 @@ class brickBreaker():
             if wall.brickRect == []:
 
                 # Displays message to user letting them know they won
-                winMsg = pygame.font.Font(None,50).render("You Win! Have a SO ICY DAY! BURRR", True, (0, 255, 255), bgColour)
+                winMsg = pygame.font.Font(None,50).render("You Win! Have a SO ICY DAY! BURRR", True, (27, 255, 0), bgColour)
                 msgRect = winMsg.get_rect()
                 msgRect = msgRect.move(width / 2 - (msgRect.center[0]), height / 3)
                 screen.blit(winMsg, msgRect)
@@ -241,7 +241,7 @@ class brickBreaker():
 
             # Display game    
             screen.blit(ball, ballRect)
-            screen.blit(bat, batRect)
+            screen.blit(paddle, paddleRect)
             pygame.display.flip()
             
 
@@ -258,18 +258,18 @@ class trumpWall():
  
         xPos = 0
         yPos = 60
-        adj = 0
+        adjust = 0
         self.brickRect = []
  
         for i in range (0, 52):
                        
             if xPos > width:
-                if adj == 0:
-                    adj = self.brickLength / 2
+                if adjust == 0:
+                    adjust = self.brickLength / 2
                 else:
-                    adj = 0
+                    adjust = 0
  
-                xPos = -adj
+                xPos = -adjust
                 yPos += self.brickHeight
                
             self.brickRect.append(self.brick.get_rect())    
