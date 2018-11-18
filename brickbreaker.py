@@ -27,12 +27,8 @@ class brickBreaker():
  
         pygame.init()
         pygame.display.set_caption('So Icy Brick Breakers')          
-        screen = pygame.display.set_mode(size, pygame.RESIZABLE)
+        screen = pygame.display.set_mode(size, pygame.RESIZABLE) # Default window size
 
-        """
-           Fullscreen looks ugly af
-           screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
-        """
         paddle = pygame.image.load("paddle.png").convert()
         paddleRect = paddle.get_rect()
  
