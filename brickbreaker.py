@@ -7,7 +7,11 @@ import pygame
 
 """
 TODO
-- Create a starting screen
+- Create a starting menu screen
+    * Show game controls
+    * Pause game when user adjust the window size
+    * Add intro music?
+    * Use image as background of start menu?
 - Make Gucci Mane's face spin when hit'
 - Add new paddle?
 - Mess around with new colors
