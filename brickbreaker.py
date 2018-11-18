@@ -27,7 +27,7 @@ class brickBreaker():
  
         pygame.init()
         pygame.display.set_caption('So Icy Brick Breakers')          
-        screen = pygame.display.set_mode(size)
+        screen = pygame.display.set_mode(size, pygame.RESIZABLE)
 
         """
            Fullscreen looks ugly af
@@ -89,6 +89,10 @@ class brickBreaker():
                         pause = True
                     if event.key == pygame.K_r:
                         resume = True
+                    if event.key == pygame.K_F11:
+                        screen = pygame.display.set_mode(size, pygame.RESIZABLE)
+                    if event.key == pygame.K_F12:
+                        screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
                                       
             # Check if paddle has hit ball    
             if ballRect.bottom >= paddleRect.top and \
@@ -175,6 +179,10 @@ class brickBreaker():
                                     pause = True
                                 if event.key == pygame.K_r:
                                     resume = True
+                                if event.key == pygame.K_F11:
+                                    screen = pygame.display.set_mode(size, pygame.RESIZABLE)
+                                if event.key == pygame.K_F12:
+                                    screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
                                 if not (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):                                    
                                     restart = True
 
