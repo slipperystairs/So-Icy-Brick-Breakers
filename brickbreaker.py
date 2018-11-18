@@ -104,26 +104,26 @@ class brickBreaker():
  
                 ySpeed = -ySpeed                
                 pong.play(0)                
-                offset = ballRect.center[0] - paddleRect.center[0]
+                offSet = ballRect.center[0] - paddleRect.center[0]
 
                 # Offset > 0 means ball has hit the right side of the paddle                  
                 # the angle of ball varies depending on where ball hits paddle             
-                if offset > 0:
+                if offSet > 0:
 
-                    if offset > 30:  
+                    if offSet > 30:  
                         xSpeed = 7
-                    elif offset > 23:                
+                    elif offSet > 23:                
                         xSpeed = 6
-                    elif offset > 17:
+                    elif offSet > 17:
                         xSpeed = 5
  
                 else:
  
-                    if offset < -30:                            
+                    if offSet < -30:                            
                         xSpeed = -7
-                    elif offset < -23:
+                    elif offSet < -23:
                         xSpeed = -6
-                    elif offset < -17:
+                    elif offSet < -17:
                         xSpeed = -5
  
                      
