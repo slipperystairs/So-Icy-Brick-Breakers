@@ -41,9 +41,10 @@ class brickBreaker():
         ballRect = ball.get_rect()
 
         """
-        Create a dictionary list with different 
+        Create a list with different 
         sounds bits and randomly choose them 
-        pong = pygame.mixer.Sound(['Gucci-Burr.wav', 'Lemmuh.wav', ''])
+            - need to figure out what sound bits
+        pong = pygame.mixer.Sound(['Gucci-Burr.wav', '', ''])
         """
         pong = pygame.mixer.Sound('Gucci-Burr.wav')
         pong.set_volume(10)        
@@ -73,6 +74,7 @@ class brickBreaker():
                 
                 if event.type == pygame.QUIT:
                     sys.exit()
+                    
                 if event.type == pygame.KEYDOWN:
  
                     if event.key == pygame.K_ESCAPE:
@@ -172,7 +174,9 @@ class brickBreaker():
                
                             if event.type == pygame.QUIT:
                                 sys.exit()
+
                             if event.type == pygame.KEYDOWN:
+
                                 if event.key == pygame.K_ESCAPE:
                                     sys.exit()
                                 if event.key == pygame.K_p:
@@ -187,7 +191,7 @@ class brickBreaker():
                                     restart = True
 
                         if restart: 
-
+                            # Reset game
                             screen.fill(bgColour)
                             wall.buildWall(width)
                             lives = maxLives
