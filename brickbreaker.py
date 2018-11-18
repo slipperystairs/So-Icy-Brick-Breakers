@@ -7,10 +7,10 @@ import pygame
 
 """
 TODO
-- Create a pause feature
 - Create a starting screen
 - Make Gucci Mane's face spin when hit'
 - Add new paddle?
+- Mess around with new colors
 """
  
 class brickBreaker():
@@ -28,9 +28,11 @@ class brickBreaker():
         pygame.init()
         pygame.display.set_caption('So Icy Brick Breakers')          
         screen = pygame.display.set_mode(size)
-        # Fullscreen looks ugly af
-        # screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
-         
+
+        """
+           Fullscreen looks ugly af
+           screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+        """
         paddle = pygame.image.load("paddle.png").convert()
         paddleRect = paddle.get_rect()
  
@@ -57,15 +59,18 @@ class brickBreaker():
         lives = maxLives
         clock = pygame.time.Clock()
         pygame.key.set_repeat(1,30)      
-        pygame.mouse.set_visible(0) # Turn off mouse pointer
         
+        pause = False
+        resume = False
+
         while 1:
             
             # FPS
             clock.tick(60)
- 
+            
             # Create game controls
             for event in pygame.event.get():
+                
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
@@ -76,12 +81,15 @@ class brickBreaker():
                         paddleRect = paddleRect.move(-paddleSpeed, 0)  
                         if (paddleRect.left < 0):                          
                             paddleRect.left = 0    
- 
                     if event.key == pygame.K_RIGHT:                    
                         paddleRect = paddleRect.move(paddleSpeed, 0)
                         if (paddleRect.right > width):                            
-                            paddleRect.right = width
- 
+                            paddleRect.right = width  
+                    if event.key == pygame.K_p:
+                        pause = True
+                    if event.key == pygame.K_r:
+                        resume = True
+                                      
             # Check if paddle has hit ball    
             if ballRect.bottom >= paddleRect.top and \
                ballRect.bottom <= paddleRect.bottom and \
@@ -124,7 +132,7 @@ class brickBreaker():
             if ballRect.top < 0:
                 ySpeed = -ySpeed      
                 pong.play(0)  
-                       
+                          
             # Check if ball has gone past the paddle - lose a life
             if ballRect.top > height:
                
@@ -138,9 +146,10 @@ class brickBreaker():
                     xSpeed = -xSpeed
                
                 ySpeed = ySpeed_init            
-                ballRect.center = width * random.random(), height / 3                                
-               
-                if lives == 0:                    
+                ballRect.center = width * random.random(), height / 3 
+
+                if lives == 0: 
+
                     msg = pygame.font.Font(None,70).render("Game Over, Pimp", True, (27, 255, 0), bgColour)
                     msgRect = msg.get_rect()
                     msgRect = msgRect.move(width / 2 - (msgRect.center[0]), height / 3)
@@ -151,10 +160,10 @@ class brickBreaker():
                             - ESC to quit the game
                             - Use any other key to restart the game
                     """
-
                     while 1:
+                        
                         restart = False
-                        #pause = False
+                        
                         for event in pygame.event.get():
                
                             if event.type == pygame.QUIT:
@@ -162,16 +171,15 @@ class brickBreaker():
                             if event.type == pygame.KEYDOWN:
                                 if event.key == pygame.K_ESCAPE:
                                     sys.exit()
-                                #if event.key == pygame.K_p:
-                                #    state = PAUSE
-                                #if event.key == pygame.K_s:
-                                #    state = RUNNING
-                                #if event.key == pygame.K_c:
-                                #   pause = False
+                                if event.key == pygame.K_p:
+                                    pause = True
+                                if event.key == pygame.K_r:
+                                    resume = True
                                 if not (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):                                    
                                     restart = True
-                                 
-                        if restart:                  
+
+                        if restart: 
+
                             screen.fill(bgColour)
                             wall.buildWall(width)
                             lives = maxLives
@@ -238,6 +246,24 @@ class brickBreaker():
                 xSpeed = xSpeed_init
                 ySpeed = ySpeed_init
                 ballRect.center = width / 2, height / 2 
+            
+            # Pretty straight forward... pauses game.
+            if pause:
+
+                pauseMsg = pygame.font.Font(None, 35).render("Game Paused! Press R to Resume Game", True, (27, 255,0), bgColour)
+                pausemsgRect = pauseMsg.get_rect()
+                pausemsgRect = pausemsgRect.move(width / 2 - (pausemsgRect.center[0]), height / 3)
+                screen.blit(pauseMsg, pausemsgRect)
+                pygame.display.flip()
+                time.sleep(1.2)
+            
+            # ...
+            if resume:
+
+                pause = False
+                screen.blit(ball,ballRect)
+                screen.blit(paddle, paddleRect)
+                pygame.display.flip()
 
             # Display game    
             screen.blit(ball, ballRect)
@@ -274,7 +300,7 @@ class trumpWall():
                
             self.brickRect.append(self.brick.get_rect())    
             self.brickRect[i] = self.brickRect[i].move(xPos, yPos)
-            xPos = xPos + self.brickLength
+            xPos = xPos + self.brickLength 
  
 if __name__ == '__main__':
  
