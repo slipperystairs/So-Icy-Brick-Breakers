@@ -76,23 +76,29 @@ class brickBreaker():
                     sys.exit()
                     
                 if event.type == pygame.KEYDOWN:
- 
+
                     if event.key == pygame.K_ESCAPE:
                         sys.exit()
+
                     if event.key == pygame.K_LEFT:                        
                         paddleRect = paddleRect.move(-paddleSpeed, 0)  
                         if (paddleRect.left < 0):                          
-                            paddleRect.left = 0    
+                            paddleRect.left = 0 
+
                     if event.key == pygame.K_RIGHT:                    
                         paddleRect = paddleRect.move(paddleSpeed, 0)
                         if (paddleRect.right > width):                            
                             paddleRect.right = width  
+
                     if event.key == pygame.K_p:
                         pause = True
+
                     if event.key == pygame.K_r:
                         resume = True
+
                     if event.key == pygame.K_F11:
                         screen = pygame.display.set_mode(size, pygame.RESIZABLE)
+
                     if event.key == pygame.K_F12:
                         screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
                                       
@@ -179,14 +185,19 @@ class brickBreaker():
 
                                 if event.key == pygame.K_ESCAPE:
                                     sys.exit()
+
                                 if event.key == pygame.K_p:
                                     pause = True
+
                                 if event.key == pygame.K_r:
                                     resume = True
+
                                 if event.key == pygame.K_F11:
                                     screen = pygame.display.set_mode(size, pygame.RESIZABLE)
+
                                 if event.key == pygame.K_F12:
                                     screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+                                    
                                 if not (event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT):                                    
                                     restart = True
 
