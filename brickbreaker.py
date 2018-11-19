@@ -26,7 +26,7 @@ class brickBreaker():
         maxLives = 6
         paddleSpeed = 30
         score = 0
-        bgColour = 255, 0, 23 # Red background 
+        bgColour = 255, 0, 23 # So Icy Red background 
         size = width, height = 640, 480
  
         pygame.init()
