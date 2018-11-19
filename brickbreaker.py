@@ -21,12 +21,12 @@ class brickBreaker():
 
     def main(self):
          
-        xSpeed_init = 5
-        ySpeed_init = 5
+        xSpeed_init = 6
+        ySpeed_init = 6
         maxLives = 6
         paddleSpeed = 30
         score = 0
-        bgColour = 255, 0, 23 # So Icy Red background 
+        bgColour = 255, 0, 23 # Red background 
         size = width, height = 640, 480
  
         pygame.init()
@@ -47,7 +47,7 @@ class brickBreaker():
         pong = pygame.mixer.Sound(['Gucci-Burr.wav', '', ''])
         """
         pong = pygame.mixer.Sound('Gucci-Burr.wav')
-        pong.set_volume(10)        
+        pong.set_volume(6)        
        
         wall = trumpWall()
         wall.buildWall(width)
@@ -231,7 +231,7 @@ class brickBreaker():
  
                 pong.play(0)              
                 wall.brickRect[index:index + 1] = []
-                score += 10
+                score += 1017
 
             # Displays lives/score             
             screen.fill(bgColour)
