@@ -81,12 +81,14 @@ class brickBreaker():
                         sys.exit()
 
                     if event.key == pygame.K_LEFT:                        
-                        paddleRect = paddleRect.move(-paddleSpeed, 0)  
+                        paddleRect = paddleRect.move(-paddleSpeed, 0) 
+                        
                         if (paddleRect.left < 0):                          
                             paddleRect.left = 0 
 
                     if event.key == pygame.K_RIGHT:                    
                         paddleRect = paddleRect.move(paddleSpeed, 0)
+
                         if (paddleRect.right > width):                            
                             paddleRect.right = width  
 
