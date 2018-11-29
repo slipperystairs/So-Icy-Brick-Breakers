@@ -26,12 +26,15 @@ class brickBreaker():
         maxLives = 6
         paddleSpeed = 30
         score = 0
-        bgColour = 255, 0, 23 # Red background 
+        bgColor = 255, 0, 23 # Red background
         size = width, height = 640, 480
  
         pygame.init()
         pygame.display.set_caption('So Icy Brick Breakers')          
         screen = pygame.display.set_mode(size, pygame.RESIZABLE) # Default window size
+
+        #backGround = pygame.image.load("thesquadfather.png").convert()
+        #backGroundRect = backGround.get_rect()
 
         paddle = pygame.image.load("paddle.png").convert()
         paddleRect = paddle.get_rect()
@@ -44,10 +47,10 @@ class brickBreaker():
         Create a list with different 
         sounds bits and randomly choose them 
             - need to figure out what sound bits
-        pong = pygame.mixer.Sound(['Gucci-Burr.wav', '', ''])
+        burr = pygame.mixer.Sound(['Gucci-Burr.wav', '', ''])
         """
-        pong = pygame.mixer.Sound('Gucci-Burr.wav')
-        pong.set_volume(6)        
+        burr = pygame.mixer.Sound('Gucci-Burr.wav')
+        burr.set_volume(6)        
        
         wall = trumpWall()
         wall.buildWall(width)
@@ -64,7 +67,7 @@ class brickBreaker():
         pause = False
         resume = False
 
-        while 1:
+        while True:
             
             # FPS
             clock.tick(60)
@@ -111,7 +114,7 @@ class brickBreaker():
                ballRect.left <= paddleRect.right:
  
                 ySpeed = -ySpeed                
-                pong.play(0)                
+                burr.play(0)                
                 offSet = ballRect.center[0] - paddleRect.center[0]
 
                 # Offset > 0 means ball has hit the right side of the paddle                  
@@ -140,12 +143,12 @@ class brickBreaker():
  
             if ballRect.left < 0 or ballRect.right > width:
                 xSpeed = -xSpeed
-                #random.choice(pong).play(0)                
-                pong.play(0)
+                #random.choice(burr).play(0)                
+                burr.play(0)
  
             if ballRect.top < 0:
                 ySpeed = -ySpeed      
-                pong.play(0)  
+                burr.play(0)  
                           
             # Check if ball has gone past the paddle - lose a life
             if ballRect.top > height:
@@ -164,15 +167,19 @@ class brickBreaker():
 
                 if lives == 0: 
 
-                    msg = pygame.font.Font(None,70).render("Game Over, Pimp", True, (27, 255, 0), bgColour)
-                    msgRect = msg.get_rect()
+                    message = pygame.font.Font(None,70).render("Game Over, Pimp", True, (27, 255, 0), bgColor)
+                    msgRect = message.get_rect()
                     msgRect = msgRect.move(width / 2 - (msgRect.center[0]), height / 3)
-                    screen.blit(msg, msgRect)
+                    screen.blit(message, msgRect)
                     pygame.display.flip()
                     """
                         Trigger user key presses
                             - ESC to quit the game
                             - Use any other key to restart the game
+                            - p to pause
+                            - r to resume
+                            - F11 to resize back to min
+                            - F12 for fullscreen 
                     """
                     while 1:
                         
@@ -205,7 +212,7 @@ class brickBreaker():
 
                         if restart: 
                             # Reset game
-                            screen.fill(bgColour)
+                            screen.fill(bgColor)
                             wall.buildWall(width)
                             lives = maxLives
                             score = 0
@@ -213,11 +220,11 @@ class brickBreaker():
 
             if xSpeed < 0 and ballRect.left < 0:
                 xSpeed = -xSpeed                                
-                pong.play(0)
+                burr.play(0)
  
             if xSpeed > 0 and ballRect.right > width:
                 xSpeed = -xSpeed                              
-                pong.play(0)
+                burr.play(0)
            
             # Check if ball makes contact with wall
             # If yes then remove a brick and change the direction of the ball
@@ -231,17 +238,17 @@ class brickBreaker():
                 else:
                     ySpeed = -ySpeed                
  
-                pong.play(0)              
+                burr.play(0)              
                 wall.brickRect[index:index + 1] = []
                 score += 1017
 
             # Displays lives/score             
-            screen.fill(bgColour)
-            scoreText = pygame.font.Font(None,30).render("Score: " + str(score), True, (27, 255, 0), bgColour)
+            screen.fill(bgColor)
+            scoreText = pygame.font.Font(None,30).render("Score: " + str(score), True, (27, 255, 0), bgColor)
             scoretextRect = scoreText.get_rect()
             scoretextRect = scoretextRect.move(width - scoretextRect.right, 0)
 
-            livesText = pygame.font.Font(None, 30).render("Lives: " + str(lives), True, (27, 255, 0), bgColour)
+            livesText = pygame.font.Font(None, 30).render("Lives: " + str(lives), True, (27, 255, 0), bgColor)
             livestextRect = livesText.get_rect()
 
             screen.blit(livesText, livestextRect)
@@ -254,7 +261,7 @@ class brickBreaker():
             if wall.brickRect == []:
 
                 # Displays message to user letting them know they won
-                winMsg = pygame.font.Font(None,50).render("You Win! Have a SO ICY DAY! BURRR", True, (27, 255, 0), bgColour)
+                winMsg = pygame.font.Font(None,50).render("You Win! Have a SO ICY DAY! BURRR", True, (27, 255, 0), bgColor)
                 msgRect = winMsg.get_rect()
                 msgRect = msgRect.move(width / 2 - (msgRect.center[0]), height / 3)
                 screen.blit(winMsg, msgRect)
@@ -262,7 +269,7 @@ class brickBreaker():
                 time.sleep(3)
 
                 # Reset lives, score and background color
-                screen.fill(bgColour)
+                screen.fill(bgColor)
                 lives = maxLives
                 score = 0
                 
@@ -275,7 +282,7 @@ class brickBreaker():
             # Pretty straight forward... pauses game.
             if pause:
 
-                pauseMsg = pygame.font.Font(None, 35).render("Game Paused! Press R to Resume Game", True, (27, 255,0), bgColour)
+                pauseMsg = pygame.font.Font(None, 35).render("Game Paused! Press R to Resume Game", True, (27, 255,0), bgColor)
                 pausemsgRect = pauseMsg.get_rect()
                 pausemsgRect = pausemsgRect.move(width / 2 - (pausemsgRect.center[0]), height / 3)
                 screen.blit(pauseMsg, pausemsgRect)
