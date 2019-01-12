@@ -5,6 +5,7 @@ import sys
 import time
 import pygame
 
+
 """
 TODO
 - Create a starting menu screen
@@ -62,7 +63,7 @@ class brickBreaker():
         ySpeed = ySpeed_init
         lives = maxLives
         clock = pygame.time.Clock()
-        pygame.key.set_repeat(1,30)      
+        pygame.key.set_repeat(1,30)
         
         pause = False
         resume = False
@@ -157,7 +158,7 @@ class brickBreaker():
                
                 # Start a new ball
                 xSpeed = xSpeed_init
-                rand = random.random()                
+               #rand = random.random()                
                
                 if random.random() > 0.5:
                     xSpeed = -xSpeed
