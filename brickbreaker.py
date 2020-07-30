@@ -19,9 +19,7 @@ TODO
 """
  
 class brickBreaker():
-
-    def main(self):
-         
+    def main(self):         
         xSpeed_init = 6
         ySpeed_init = 6
         maxLives = 6
@@ -127,8 +125,7 @@ class brickBreaker():
                         xSpeed = -6
                     elif offSet < -17:
                         xSpeed = -5
- 
-                     
+                    
             # Move paddle/ball
             ballRect = ballRect.move(xSpeed, ySpeed)
  
@@ -273,9 +270,7 @@ class brickBreaker():
             screen.blit(paddle, paddleRect)
             pygame.display.flip()
             
-
-class trumpWall():
- 
+class trumpWall(): 
     def __init__(self):
  
         self.brick = pygame.image.load("brick.png").convert()
